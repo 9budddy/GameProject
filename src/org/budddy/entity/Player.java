@@ -57,29 +57,50 @@ public class Player extends Entity{
 
     public void update() {
 
-        if (keyH.upPressed) {
-            direction = "up";
-            random = (int) Math.floor(Math.random() * 2);
-            y -= speed;
-        }
-        else if (keyH.downPressed) {
-            direction = "down";
-            random = (int) Math.floor(Math.random() * 2);
-            y += speed;
-        }
-        else if (keyH.leftPressed) {
-            direction = "left";
-            random = (int) Math.floor(Math.random() * 2);
-            x -= speed;
-        }
-        else if (keyH.rightPressed) {
-            direction = "right";
-            random = (int) Math.floor(Math.random() * 2);
-            x += speed;
-        }
-        else {
+        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
+            if (keyH.upPressed) {
+                direction = "up";
+                y -= speed;
+
+            }
+            else if (keyH.downPressed) {
+                direction = "down";
+                y += speed;
+
+            }
+            else if (keyH.leftPressed) {
+                direction = "left";
+                x -= speed;
+
+            }
+            else if (keyH.rightPressed) {
+                direction = "right";
+                x += speed;
+
+            }
+            if (spriteCounter == -1 && tempRandom == -1) {
+                random = 1;
+                tempRandom = 1;
+
+            }
+
+            spriteCounter++;
+            if (spriteCounter > 10) {
+                if (random == 0) {
+                    random = 1;
+                } else if (random == 1) {
+                    random = -1;
+                } else if (random == -1) {
+                    random = 0;
+                }
+
+                spriteCounter = -1;
+            }
+
+        } else {
             random = -1;
             tempRandom = -1;
+            spriteCounter = -1;
         }
     }
     public void draw(Graphics2D g2) {
@@ -90,11 +111,7 @@ public class Player extends Entity{
 
         BufferedImage image = null;
 
-        if (tempRandom == 0) {
-            random = 1;
-        } else if (tempRandom == 1) {
-            random = 0;
-        }
+
 
         switch (direction) {
             case "up":

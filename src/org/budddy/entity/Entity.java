@@ -10,4 +10,6 @@ public class Entity {
     public BufferedImage upl, upr, ups, downl, downr, downs, leftl, leftr, lefts, rightl, rightr, rights;
     public String direction;
     public int random, tempRandom;
+
+    public int spriteCounter = -1;
 }
