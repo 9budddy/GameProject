@@ -90,10 +90,10 @@ public class Player extends Entity{
 
         BufferedImage image = null;
 
-        if (random == 0) {
-            image = upl;
-        } else if (random == 1) {
-            image = upr;
+        if (tempRandom == 0) {
+            random = 1;
+        } else if (tempRandom == 1) {
+            random = 0;
         }
 
         switch (direction) {
