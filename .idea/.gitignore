@@ -1,0 +1,29 @@
+##############################
+## Java
+##############################
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+##############################
+## IntelliJ
+##############################
+out/
+.idea/
+.idea_modules/
+*.iml
+*.ipr
+*.iws
+
+# Default ignored files
+/shelf/
+/workspace.xml
+/GameProject.iml
+/misc.xml
+/modules.xml
+/uiDesigner.xml
+/vcs.xml
