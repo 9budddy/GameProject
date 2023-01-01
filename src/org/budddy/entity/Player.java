@@ -2,6 +2,7 @@ package org.budddy.entity;
 
 import org.budddy.main.GamePanel;
 import org.budddy.main.KeyHandler;
+import org.budddy.main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,24 +48,34 @@ public class Player extends Entity{
 
 
     public void getPlayerImage() {
+
+        upl = setup("up-l");
+        upr = setup("up-r");
+        ups = setup("up-s");
+        downl = setup("down-l");
+        downr = setup("down-r");
+        downs = setup("down-s");
+        leftl = setup("left-l");
+        leftr = setup("left-r");
+        lefts = setup("left-s");
+        rightl = setup("right-l");
+        rightr = setup("right-r");
+        rights = setup("right-r");
+
+    }
+
+    public BufferedImage setup(String imageName) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
         try {
-            upl = ImageIO.read(getClass().getResourceAsStream("/player/up-l.png"));
-            upr = ImageIO.read(getClass().getResourceAsStream("/player/up-r.png"));
-            ups = ImageIO.read(getClass().getResourceAsStream("/player/up-s.png"));
-            downl = ImageIO.read(getClass().getResourceAsStream("/player/down-l.png"));
-            downr = ImageIO.read(getClass().getResourceAsStream("/player/down-r.png"));
-            downs = ImageIO.read(getClass().getResourceAsStream("/player/down-s.png"));
-            leftl = ImageIO.read(getClass().getResourceAsStream("/player/left-l.png"));
-            leftr = ImageIO.read(getClass().getResourceAsStream("/player/left-r.png"));
-            lefts = ImageIO.read(getClass().getResourceAsStream("/player/left-s.png"));
-            rightl = ImageIO.read(getClass().getResourceAsStream("/player/right-l.png"));
-            rightr = ImageIO.read(getClass().getResourceAsStream("/player/right-r.png"));
-            rights = ImageIO.read(getClass().getResourceAsStream("/player/right-s.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return image;
     }
 
 
@@ -209,6 +220,6 @@ public class Player extends Entity{
                 }
                 break;
         }
-        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
     }
 }
