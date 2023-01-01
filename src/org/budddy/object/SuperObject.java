@@ -1,6 +1,7 @@
 package org.budddy.object;
 
 import org.budddy.main.GamePanel;
+import org.budddy.main.UtilityTool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,7 @@ public class SuperObject {
     public int solidAreaDefaultY = 0;
     public int solidAreaDefaultHeight = 48;
     public int solidAreaDefaultWidth = 48;
+    UtilityTool uTool = new UtilityTool();
 
     public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
