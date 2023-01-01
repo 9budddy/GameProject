@@ -23,17 +23,22 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldRow = 50;
     public final int maxWorldCol = 50;
-    public final int worldWidth = tileSize * maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
 
     // FPS
     int FPS = 60;
+    public int drawCount = 0;
 
+    // SYSTEM
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
+    Sound music = new Sound();
+    Sound sound = new Sound();
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
+    Thread gameThread;
+
+    // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject[] obj = new SuperObject[10];
 
@@ -49,6 +54,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
+
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -101,7 +108,6 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
         int timer = 0;
-        int drawCount = 0;
 
         while (gameThread != null) {
 
@@ -119,7 +125,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
 
             if (timer >= 1000000000) {
-                System.out.println("FPS:" + drawCount);
+                ui.getFPS();
                 drawCount = 0;
                 timer = 0;
             }
@@ -143,19 +149,53 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D)g;
 
+        SuperObject[] tempObj = new SuperObject[obj.length];
+        int tempIndex = 0;
+
 //---------------------------------------------------
         // Draw as if Layers
         tileM.draw(g2);
 
         for (int i = 0; i < obj.length; i++) {
             if (obj[i] != null) {
-                obj[i].draw(g2, this);
+                switch (obj[i].name) {
+                    case "Boots", "Key" -> {
+                        obj[i].draw(g2, this);
+                    }
+                    default -> {
+                        tempObj[tempIndex] = obj[i];
+                        tempIndex++;
+                    }
+                }
             }
         }
 
         player.draw(g2);
+
+        for (int i = 0; i < tempObj.length; i++) {
+            if (tempObj[i] != null) {
+                tempObj[i].draw(g2, this);
+            }
+        }
+
+        ui.draw(g2);
 //---------------------------------------------------
 
         g2.dispose();
+    }
+
+    public void playMusic(int i) {
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
+    public void stopMusic() {
+        music.stop();
+    }
+
+    public void playSoundEffect(int i) {
+        sound.setFile(i);
+        sound.play();
     }
 }

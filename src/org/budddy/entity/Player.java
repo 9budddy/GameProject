@@ -15,7 +15,8 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
-    int hasKey = 0;
+    public int hasKey = 0;
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -30,10 +31,11 @@ public class Player extends Entity{
 
         setDefaultValues();
         getPlayerImage();
+
     }
 
-    public void setDefaultValues() {
 
+    public void setDefaultValues() {
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         speed = 4;
@@ -43,10 +45,9 @@ public class Player extends Entity{
         spriteCounter = -1;
     }
 
+
     public void getPlayerImage() {
-
         try {
-
             upl = ImageIO.read(getClass().getResourceAsStream("/player/up-l.png"));
             upr = ImageIO.read(getClass().getResourceAsStream("/player/up-r.png"));
             ups = ImageIO.read(getClass().getResourceAsStream("/player/up-s.png"));
@@ -66,10 +67,9 @@ public class Player extends Entity{
 
     }
 
+
     public void update() {
-
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-
             if (keyH.upPressed) {
                 direction = "up";
             }
@@ -115,7 +115,6 @@ public class Player extends Entity{
 
                 spriteCounter = -1;
             }
-
         } else {
             spriteNum = -1;
             spriteMoving = -1;
@@ -123,36 +122,50 @@ public class Player extends Entity{
         }
     }
 
+
     public void pickUpObject(int i) {
         if (i != 999) {
             String objectName = gp.obj[i].name;
 
             switch(objectName) {
                 case "Key":
+                    gp.playSoundEffect(1);
                     hasKey++;
                     gp.obj[i] = null;
-                    System.out.println("Key: " + hasKey);
+                    gp.ui.showMessage("You got a key!");
                     break;
+
                 case "Door":
                     if (hasKey > 0) {
+                        gp.playSoundEffect(4);
                         gp.obj[i] = null;
                         hasKey--;
-                        System.out.println("Key: " + hasKey);
+                        gp.ui.showMessage("You unlocked a door!");
+                    } else {
+                        gp.ui.showMessage("You need a key!");
                     }
+                    break;
+
+                case "Boots":
+                    gp.playSoundEffect(3);
+                    speed += 2;
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("You picked up your Helens! Zoom!");
+                    break;
+
+                case "Chest":
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSoundEffect(2);
                     break;
             }
         }
     }
 
+
     public void draw(Graphics2D g2) {
 
-//        g2.setColor(Color.white);
-//        g2.fillRect(x, y, gp.tileSize, gp.tileSize);
-
-
         BufferedImage image = null;
-
-
 
         switch (direction) {
             case "up":
@@ -186,7 +199,6 @@ public class Player extends Entity{
                 }
                 break;
 
-
             case "right":
                 if (spriteNum == 0) {
                     image = rightl;
@@ -198,6 +210,5 @@ public class Player extends Entity{
                 break;
         }
         g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-
     }
 }

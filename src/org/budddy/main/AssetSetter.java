@@ -1,5 +1,6 @@
 package org.budddy.main;
 
+import org.budddy.object.Boots;
 import org.budddy.object.Chest;
 import org.budddy.object.Door;
 import org.budddy.object.Key;
@@ -40,5 +41,9 @@ public class AssetSetter {
         gp.obj[6] = new Chest();
         gp.obj[6].worldX = 10 * gp.tileSize;
         gp.obj[6].worldY = 7 * gp.tileSize;
+
+        gp.obj[7] = new Boots();
+        gp.obj[7].worldX = 36 * gp.tileSize;
+        gp.obj[7].worldY = 41 * gp.tileSize;
     }
 }

@@ -9,7 +9,7 @@ public class MainDriver {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("2D Adventure");
+        window.setTitle("Mini-Buddy Adventures");
 
 
         GamePanel gamePanel = new GamePanel();

@@ -76,6 +76,14 @@ public class CollisionChecker {
                 gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
                 gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
 
+                if (gp.obj[i].name.equals("Door")) {
+                    gp.obj[i].solidArea.y += 36;
+                }
+                if (gp.obj[i].name.equals("Chest")) {
+                    gp.obj[i].solidArea.y += 26;
+                    gp.obj[i].solidArea.height += 4;
+                }
+
                 switch (entity.direction) {
                     case "up" -> {
                         entity.solidArea.y -= entity.speed;
@@ -127,6 +135,8 @@ public class CollisionChecker {
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
                 gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+                gp.obj[i].solidArea.height = gp.obj[i].solidAreaDefaultHeight;
+                gp.obj[i].solidArea.width = gp.obj[i].solidAreaDefaultWidth;
             }
         }
 
