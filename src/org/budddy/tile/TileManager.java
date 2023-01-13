@@ -19,6 +19,7 @@ public class TileManager {
 
     ArrayList<String> fileNames = new ArrayList<>();
     ArrayList<String> collisionStatus = new ArrayList<>();
+    ArrayList<String> positionStatus = new ArrayList<>();
 
     public TileManager(GamePanel gp) {
 
@@ -35,6 +36,8 @@ public class TileManager {
             while((line = br.readLine()) != null) {
                 fileNames.add(line);
                 collisionStatus.add(br.readLine());
+                positionStatus.add(br.readLine());
+
             }
             br.close();
 
@@ -73,17 +76,21 @@ public class TileManager {
 
             String fileName;
             boolean collision;
+            int position;
 
             // Get a file name
             fileName = fileNames.get(i);
             if (collisionStatus.get(i).equals("true")) { collision = true; }
             else { collision = false; }
 
-            setup(i, fileName, collision);
+            if (positionStatus.get(i).equals("2")) { position = 2; }
+            else { position = 1; }
+
+            setup(i, fileName, collision, position);
         }
     }
 
-    public void setup(int index, String imageName, boolean collision) {
+    public void setup(int index, String imageName, boolean collision, int position) {
 
         UtilityTool uTool = new UtilityTool();
         try {
@@ -91,6 +98,7 @@ public class TileManager {
             tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
+            tile[index].position = position;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -135,7 +143,7 @@ public class TileManager {
     }
 
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2, int position) {
 
         int worldRow = 0;
         int worldCol = 0;
@@ -154,7 +162,15 @@ public class TileManager {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+                if (position == 1) {
+                    if (tile[tileNum].position == 1)
+                        g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+                }
+                if (position == 2) {
+                    if (tile[tileNum].position == 2)
+                        g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+                }
+                //TODO: ADD POSITIONS TO OTHER TILES
             }
             worldCol++;
 

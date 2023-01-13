@@ -160,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 //---------------------------------------------------
         // Draw as if Layers
-        tileM.draw(g2);
+        tileM.draw(g2, 1);
 
         for (int i = 0; i < obj.length; i++) {
             if (obj[i] != null) {
@@ -177,6 +177,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         player.draw(g2);
+
+        tileM.draw(g2, 2);
 
         for (int i = 0; i < tempObj.length; i++) {
             if (tempObj[i] != null) {
