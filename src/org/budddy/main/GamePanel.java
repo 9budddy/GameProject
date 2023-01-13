@@ -21,8 +21,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     // WORLD SETTINGS
-    public final int maxWorldRow = 50;
-    public final int maxWorldCol = 50;
+    public int maxWorldRow = 50;
+    public int maxWorldCol = 50;
 
     // FPS
     int FPS = 60;
