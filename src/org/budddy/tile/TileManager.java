@@ -162,14 +162,11 @@ public class TileManager {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
-                if (position == 1) {
-                    if (tile[tileNum].position == 1)
-                        g2.drawImage(tile[tileNum].image, screenX, screenY, null);
-                }
-                if (position == 2) {
-                    if (tile[tileNum].position == 2)
-                        g2.drawImage(tile[tileNum].image, screenX, screenY, null);
-                }
+                if (tile[tileNum].position == position)
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+
+                if (tile[tileNum].position == position)
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, null);
                 //TODO: ADD POSITIONS TO OTHER TILES
             }
             worldCol++;

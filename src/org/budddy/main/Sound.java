@@ -1,8 +1,7 @@
 package org.budddy.main;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
+import java.io.IOException;
 import java.net.URL;
 
 public class Sound {
@@ -19,16 +18,21 @@ public class Sound {
         soundURL[4] = getClass().getResource("/sound/unlock.wav");
     }
 
-    public void setFile(int i) {
+    public boolean setFile(int i) {
 
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
 
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
+            // No Sound Playing
+            return false;
+        }
+        catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     public void play() {
