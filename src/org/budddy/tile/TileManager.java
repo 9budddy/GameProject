@@ -50,7 +50,7 @@ public class TileManager {
         getTileImage();
 
         // GET THE maxWorldCol & Row
-        is = getClass().getResourceAsStream("/maps/mymap.txt");
+        is = getClass().getResourceAsStream("/maps/oldmymap.txt");
         br = new BufferedReader(new InputStreamReader(is));
 
         try {
@@ -67,7 +67,7 @@ public class TileManager {
         }
 
 
-        loadMap("/maps/mymap.txt");
+        loadMap("/maps/oldmymap.txt");
     }
 
     public void getTileImage() {
@@ -122,7 +122,7 @@ public class TileManager {
 
                 while(col < gp.maxWorldCol) {
 
-                    String numbers[] = line.split(" ");
+                    String[] numbers = line.split("[&s]+");
 
                     int num = Integer.parseInt(numbers[col]);
 
